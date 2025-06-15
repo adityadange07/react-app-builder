@@ -1,7 +1,31 @@
 export const ComponentPalette = () => {
   const components = [
-    { type: "Button", name: "Button" },
-    { type: "Card", name: "Card" },
+    { type: "Button", name: "Button", label: "Button" },
+    { type: "Card", name: "Card", title: "Card" },
+    {
+      type: "Select Option",
+      name: "Select Option",
+      title: "Select Option",
+      props: {
+        options: [{
+          "Option 1": 
+          {
+            label: "Option 1",
+            value: "option1",
+          }, 
+          "Option 2":
+          {
+            label: "Option 2",
+            value: "option2",
+          },
+          "Option 3":
+          {
+            label: "Option 3",
+            value: "option3",
+          }
+        }]
+      }
+    }
   ];
 
   return (

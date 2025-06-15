@@ -17,10 +17,7 @@ export const Canvas = ({
       {
         id: uuidv4(),
         type: data.type,
-        props: {
-          label: "Click Me",
-          title: "Card Title",
-        },
+        props: data,
       },
     ]);
   };

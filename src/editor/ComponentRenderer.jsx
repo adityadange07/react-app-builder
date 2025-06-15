@@ -1,5 +1,6 @@
 import { ButtonComponent } from "../components/ButtonComponent";
 import { CardComponent } from "../components/CardComponent";
+import { SelectOptionComponent } from "../components/SelectOptionComponent";
 
 
 export const ComponentRenderer = ({ type, props, isSelected, onClick, isPreview }) => {
@@ -14,9 +15,11 @@ export const ComponentRenderer = ({ type, props, isSelected, onClick, isPreview 
 
   switch (type) {
     case "Button":
-      return <Wrapper><ButtonComponent label={props.label} /></Wrapper>;
+      return <Wrapper><ButtonComponent {...props} /></Wrapper>;
     case "Card":
-      return <Wrapper><CardComponent title={props.title} /></Wrapper>;
+      return <Wrapper><CardComponent {...props} /></Wrapper>;
+    case "Select Option":
+      return <Wrapper><SelectOptionComponent {...props} /></Wrapper>;
     default:
       return null;
   }

@@ -32,6 +32,15 @@ export const PropertyEditor = ({ component, onUpdate }) => {
           placeholder="Card Title"
         />
       )}
+      {component.type === "Select Option" && (
+        <input
+          type="text"
+          name="title"
+          value={component.props.title}
+          onChange={handleChange}
+          placeholder="Select Option Title"
+        />
+      )}
     </div>
   );
 };
