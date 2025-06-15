@@ -1,9 +1,15 @@
 import { v4 as uuidv4 } from "uuid";
 import { ComponentRenderer } from "./ComponentRenderer";
 
-export const Canvas = ({ components, setComponents, selectedId, setSelectedId }) => {
-
+export const Canvas = ({
+  components,
+  setComponents,
+  selectedId,
+  setSelectedId,
+  isPreview,
+}) => {
   const handleDrop = (e) => {
+    if (isPreview) return;
     e.preventDefault();
     const data = JSON.parse(e.dataTransfer.getData("component"));
     setComponents((prev) => [
@@ -19,21 +25,45 @@ export const Canvas = ({ components, setComponents, selectedId, setSelectedId })
     ]);
   };
 
+  const screenStyle = {
+    width: "100vw",
+    height: "100vh",
+    background: isPreview ? "#f8f9fa" : "#ffffff",
+    border: "2px dashed #ccc",
+    borderRadius: "16px",
+    padding: "20px",
+    overflowY: "auto",
+    boxShadow: "0 4px 20px rgba(0, 0, 0, 0.1)",
+    display: "flex",
+    flexDirection: "column",
+    gap: "12px",
+  };
+
   return (
     <div
-      style={{ width: "600px", minHeight: "300px", border: "2px dashed #999", padding: "10px" }}
-      onDragOver={(e) => e.preventDefault()}
-      onDrop={handleDrop}
+      style={{
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "flex-start",
+        background: "#f0f0f0",
+      }}
     >
-      {components.map((comp) => (
-        <ComponentRenderer
-          key={comp.id}
-          type={comp.type}
-          props={comp.props}
-          isSelected={selectedId === comp.id}
-          onClick={() => setSelectedId(comp.id)}
-        />
-      ))}
+      <div
+        style={screenStyle}
+        onDragOver={(e) => !isPreview && e.preventDefault()}
+        onDrop={handleDrop}
+      >
+        {components.map((comp) => (
+          <ComponentRenderer
+            key={comp.id}
+            type={comp.type}
+            props={comp.props}
+            isSelected={!isPreview && selectedId === comp.id}
+            onClick={!isPreview ? () => setSelectedId(comp.id) : undefined}
+            isPreview={isPreview}
+          />
+        ))}
+      </div>
     </div>
   );
 };

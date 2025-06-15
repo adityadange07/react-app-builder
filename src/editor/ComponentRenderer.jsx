@@ -1,27 +1,22 @@
 import { ButtonComponent } from "../components/ButtonComponent";
 import { CardComponent } from "../components/CardComponent";
 
-export const ComponentRenderer = ({ type, props, isSelected, onClick  }) => {
 
+export const ComponentRenderer = ({ type, props, isSelected, onClick, isPreview }) => {
   const style = {
-    border: isSelected ? "2px solid blue" : "none",
+    border: !isPreview && isSelected ? "2px solid blue" : "none",
     padding: "4px",
     marginBottom: "10px",
   };
 
+  const Wrapper = ({ children }) =>
+    isPreview ? <>{children}</> : <div style={style} onClick={onClick}>{children}</div>;
+
   switch (type) {
     case "Button":
-      return (
-        <div style={style} onClick={onClick}>
-          <ButtonComponent label={props.label} />
-        </div>
-      );
+      return <Wrapper><ButtonComponent label={props.label} /></Wrapper>;
     case "Card":
-      return (
-        <div style={style} onClick={onClick}>
-          <CardComponent title={props.title} />
-        </div>
-      );
+      return <Wrapper><CardComponent title={props.title} /></Wrapper>;
     default:
       return null;
   }

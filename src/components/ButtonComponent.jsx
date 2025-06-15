@@ -1,3 +1,3 @@
 export const ButtonComponent = ({ label }) => {
-  return <button>{label || "Click Me"}</button>;
+  return <button style={{ border: "1px solid #ccc", padding: "10px" }} >{label || "Click Me"}</button>;
 };
